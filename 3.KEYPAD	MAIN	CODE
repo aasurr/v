@@ -56,3 +56,106 @@
 								end	if;
 				end	process;
  end	Behavioral;
+
+
+
+
+
+
+
+
+
+
+
+KEYPAD	TB
+ LIBRARY	ieee;
+ USE	ieee.std_logic_1164.ALL;--	Uncomment	the	following	library	declaration	if	using--	arithmetic	functions	with	Signed	or	Unsigned	values--USE	ieee.numeric_std.ALL;
+ ENTITY	rg	IS
+ END	rg;
+ ARCHITECTURE	behavior	OF	rg	IS	
+				--	Component	Declaration	for	the	Unit	Under	Test	(UUT)
+				COMPONENT	sdfg
+				PORT(
+									rows	:	IN		std_logic_vector(3	downto	0);
+									column	:	IN		std_logic_vector(3	downto	0);
+									y	:	OUT		std_logic_vector(7	downto	0)
+								);
+				END	COMPONENT;
+			--Inputs
+			signal	rows	:	std_logic_vector(3	downto	0)	:=	(others	=>	'0');
+			signal	column	:	std_logic_vector(3	downto	0)	:=	(others	=>	'0');
+			signal	column	:	std_logic_vector(3	downto	0)	:=	(others	=>	'0');
+				--Outputs
+			signal	y	:	std_logic_vector(7	downto	0);
+			--	No	clocks	detected	in	port	list.	Replace	<clock>	below	with	
+			--	appropriate	port	name	
+			constant	<clock>_period	:	time	:=	10	ns;
+ BEGIN
+				--	Instantiate	the	Unit	Under	Test	(UUT)
+			uut:	sdfg	PORT	MAP	(
+										rows	=>	rows,
+										column	=>	column,
+										y	=>	y
+								);
+			--	Clock	process	definitions
+			<clock>_process	:process
+			begin
+								<clock>	<=	'0';
+								wait	for	<clock>_period/2;
+								<clock>	<=	'1';
+								wait	for	<clock>_period/2;
+			end	process;
+			--	Stimulus	process
+			stim_proc:	process
+			begin								
+									begin		
+			rows<="0001";
+			coloumn<="0001";	
+			wait	for	100	ns;	
+				rows<="0001";
+			coloumn<="0010";	
+			wait	for	100	ns;
+				rows<="0001";
+			coloumn<="1000";	
+			wait	for	100	ns;
+				rows<="0010";
+			coloumn<="0001";	
+			wait	for	100	ns;
+ rows<="0010";
+			coloumn<="0010";	
+			wait	for	100	ns;
+				rows<="0010";
+			coloumn<="0100";	
+			wait	for	100	ns;
+				rows<="0010";
+			coloumn<="1000";	
+			wait	for	100	ns;
+				rows<="0100";
+			coloumn<="0001";	
+			wait	for	100	ns;
+				rows<="0100";
+			coloumn<="0010";	
+			wait	for	100	ns;
+ rows<="0100";
+			coloumn<="0100";	
+			wait	for	100	ns;
+				rows<="0100";
+			coloumn<="1000";	
+			wait	for	100	ns;
+				rows<="1000";
+			coloumn<="0001";	
+			wait	for	100	ns;
+				rows<="1000";
+			coloumn<="0010";	
+			wait	for	100	ns;
+ rows<="1000";
+			coloumn<="0100";	
+			wait	for	100	ns;
+				rows<="1000";
+			coloumn<="1000";	
+			wait	for	100	ns;
+						--wait	for	<clock>_period*10;
+						wait;
+						wait;
+			end	process;
+ END;
