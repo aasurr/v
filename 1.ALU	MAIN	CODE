@@ -1,0 +1,113 @@
+1.ALU	MAIN	CODE
+ library	IEEE;
+ use	IEEE.STD_LOGIC_1164.ALL;
+ use	IEEE.NUMERIC_STD.ALL;
+ use	IEEE.STD_LOGIC_ARITH.ALL;
+ use	IEEE.STD_LOGIC_UNSIGNED.ALL;--	Uncomment	the	following	library	declaration	if	using--	arithmetic	functions	with	Signed	or	Unsigned	values--use	IEEE.NUMERIC_STD.ALL;--	Uncomment	the	following	library	declaration	if	instantiating--	any	Xilinx	primitives	in	this	code.--library	UNISIM;--use	UNISIM.VComponents.all;
+ entity	alc1	is
+				Port	(	a	:	in		STD_LOGIC_VECTOR	(3	downto	0);
+											b	:	in		STD_LOGIC_VECTOR	(3	downto	0);
+											c	:	in		STD_LOGIC_VECTOR	(2	downto	0);
+											y	:	out		STD_LOGIC_VECTOR	(3	downto	0));
+ end	alc1;
+ architecture	Behavioral	of	alc1	is
+ begin
+ process(a,b,c)
+ begin	
+				case	c	is
+					when	"000"=>Y<=a+b;
+					when	"001"=>Y<=a-b;
+					when	"010"=>Y<=a	and	b;
+					when	"011"=>Y<=a	nand	b;
+					when	"100"=>Y<=a	xor	b;
+					when	"101"=>Y<=a	xnor	b;
+					when	"110"=>Y<=a	or	b;
+					when	"111"=>Y<=a;
+					when	others=>Y<="0000";
+					end	case;
+					end	process;
+ end	Behavioral;
+	
+
+
+
+
+
+
+
+
+
+
+
+	ALU	TB
+ LIBRARY	ieee;
+ USE	ieee.std_logic_1164.ALL;--	Uncomment	the	following	library	declaration	if	using--	arithmetic	functions	with	Signed	or	Unsigned	values--USE	ieee.numeric_std.ALL;
+ ENTITY	tbc	IS
+ END	tbc;
+ ARCHITECTURE	behavior	OF	tbc	IS	
+				--	Component	Declaration	for	the	Unit	Under	Test	(UUT)
+				COMPONENT	alc1
+				PORT(
+									a	:	IN		std_logic_vector(3	downto	0);
+									b	:	IN		std_logic_vector(3	downto	0);
+									c	:	IN		std_logic_vector(2	downto	0);
+									y	:	OUT		std_logic_vector(3	downto	0)
+								);
+				END	COMPONENT;
+			--Inputs
+			signal	a	:	std_logic_vector(3	downto	0)	:=	(others	=>	'0');
+			signal	b	:	std_logic_vector(3	downto	0)	:=	(others	=>	'0');
+			signal	c	:	std_logic_vector(2	downto	0)	:=	(others	=>	'0');
+				--Outputs
+			signal	y	:	std_logic_vector(3	downto	0);
+			--	No	clocks	detected	in	port	list.	Replace	<clock>	below	with	
+			--	appropriate	port	name	
+			constant	<clock>_period	:	time	:=	10	ns;
+ BEGIN
+				--	Instantiate	the	Unit	Under	Test	(UUT)
+			uut:	alc1	PORT	MAP	(
+										a	=>	a,
+										b	=>	b,
+										c	=>	c,
+										y	=>	y
+								);
+			--	Clock	process	definitions
+			<clock>_process	:process
+			begin
+			begin
+								<clock>	<=	'0';
+								wait	for	<clock>_period/2;
+								<clock>	<=	'1';
+								wait	for	<clock>_period/2;
+			end	process;
+			--	Stimulus	process
+			stim_proc:	process
+			begin								
+												--	hold	reset	state	for	100	ns.
+												a<="1011";
+													b<="1001";
+													c<="000";	--result	for	addition
+													wait	for	100	ns;			
+													c<="001";	--result	for	subtraction
+													wait	for	100	ns;			
+													c<="010";	--result	of	and
+													wait	for	100	ns;			
+													c<="011";	--result	of	xor
+													wait	for	100	ns;			
+													c<="100";	--result	for	xnor
+													wait	for	100	ns;			
+													c<="101";	--result	of	or
+													wait	for	100	ns;			
+														c<="111";	--result	of	a
+													wait	for	100	ns;			
+						wait	for	100	ns;		
+						--wait	for	<clock>_period*10;
+						--	insert	stimulus	here	
+						wait;
+			end	process;
+ END;
+
+
+
+
+
