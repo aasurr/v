@@ -1,0 +1,58 @@
+ 3.KEYPAD	MAIN	CODE
+ library	IEEE;
+ use	IEEE.STD_LOGIC_1164.ALL;--	Uncomment	the	following	library	declaration	if	using--	arithmetic	functions	with	Signed	or	Unsigned	values--use	IEEE.NUMERIC_STD.ALL;--	Uncomment	the	following	library	declaration	if	instantiating--	any	Xilinx	primitives	in	this	code.--library	UNISIM;--use	UNISIM.VComponents.all;
+ entity	sdfg	is
+				Port	(	rows	:	in		STD_LOGIC_VECTOR	(3	downto	0);
+											column	:	in		STD_LOGIC_VECTOR	(3	downto	0);
+											y	:	out		STD_LOGIC_VECTOR	(7	downto	0));
+											y	:	out		STD_LOGIC_VECTOR	(7	downto	0));
+ end	sdfg;
+ architecture	Behavioral	of	sdfg	is
+ begin
+ process(rows,	column)
+				begin
+								if	(rows	=	"0001")	then
+												if	(column	=	"0001")	then
+																y	<=	"00111111";
+												elsif	(column	=	"0010")	then
+																y	<=	"00000110";
+												elsif	(column	=	"0100")	then
+																y	<=	"01011011";
+												elsif	(column	=	"1000")	then
+																y	<=	"01001111";
+												end	if;
+																elsif	(rows	=	"0010")	then
+												if	(column	=	"0001")	then
+																y	<=	"01100110";
+												elsif	(column	=	"0010")	then
+																y	<=	"01101101";
+												elsif	(column	=	"0100")	then
+																y	<=	"01111101";
+												elsif	(column	=	"1000")	then
+																y	<=	"00000111";
+												end	if;
+																elsif	(rows	=	"0100")	then
+												if	(column	=	"0001")	then
+																y	<=	"01111111";
+												elsif	(column	=	"0010")	then
+																y	<=	"01100111";
+												elsif	(column	=	"0100")	then
+																y	<=	"01110111";
+												elsif	(column	=	"1000")	then
+																y	<=	"01111100";
+												end	if;
+																elsif	(rows	=	"1000")	then
+												if	(column	=	"0001")	then
+																y	<=	"00111001";
+												elsif	(column	=	"0010")	then
+																y	<=	"01011110";
+												elsif	(column	=	"0100")	then
+																y	<=	"01111001";
+												elsif	(column	=	"1000")	then
+																y	<=	"01110001";
+												end	if;
+								else
+												y	<=	(others	=>	'0');	--	default	output
+								end	if;
+				end	process;
+ end	Behavioral;
